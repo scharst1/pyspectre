@@ -150,7 +150,8 @@ def read_results(raw_file: str, offset: int = 0) -> Dict[str, DataFrame]:
 
 
 def simulate(netlist_path: str, includes: Optional[List[str]] = [], raw_path: str = "",
-             log_path: str = "", log_silent=True) -> Dict[str, DataFrame]:
+             log_path: str = "", log_silent=True, additional_spectre_args: list[str] = []
+            ) -> Dict[str, DataFrame]:
     """
     Passes the given netlist path to spectre and reads the results in.
     """
@@ -168,7 +169,7 @@ def simulate(netlist_path: str, includes: Optional[List[str]] = [], raw_path: st
         log_option = ['=log', buf]
 
     cmd = ['spectre', '-64', '-format', 'nutbin', '-raw', f'{raw}'
-           ] + log_option + inc + [net]
+           ] + log_option + inc + additional_spectre_args + [net]
 
     if not os.path.isfile(net):
         raise (FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), net))
