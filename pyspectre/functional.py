@@ -925,13 +925,12 @@ def set_circuit_parameter(session: Session, circuit_parameter: str, attribute_na
     return run_command(session, cmd)
 
 
-def list_instance_parameters(session: Session, instance_name: str) -> list[tuple[str, str]]:
+def list_instance_parameters(session: Session, instance_name: str) -> list[str]:
     """Retrieve the parameters and their values for a specified instance.
 
     This function sends a command to the Spectre session to list all parameters
     associated with a specific instance. It then parses the command output and
-    returns a list of tuples, where each tuple contains a parameter name and its
-    corresponding value.
+    returns a list of parameter names.
 
     Parameters
     ----------
@@ -945,10 +944,8 @@ def list_instance_parameters(session: Session, instance_name: str) -> list[tuple
 
     Returns
     -------
-    list[tuple[str, str]]
-        A list of tuples where each tuple contains:
-        - The name of the parameter (str).
-        - The value of the parameter (str).
+    list[str]
+        A list of parameter names
     """
     cmd = f'(sclListParameter (sclGetInstance "{instance_name}"))'
     run_command(session, cmd)
